@@ -26,7 +26,7 @@ const ActorEdit: FC<IActorEditProps> = ({ actorId }) => {
 	const {
 		handleSubmit,
 		register,
-		formState: { errors },
+		formState,
 		setValue,
 		control,
 		getValues,
@@ -52,13 +52,13 @@ const ActorEdit: FC<IActorEditProps> = ({ actorId }) => {
 									required: 'Name is required!',
 								})}
 								placeholder="Name"
-								error={errors.name}
+								error={formState.errors.name}
 							/>
 
 							<div>
 								<SlugField
 									register={register}
-									error={errors.slug}
+									error={formState.errors.slug}
 									generate={() => {
 										setValue('slug', generateSlug(getValues('name')))
 									}}

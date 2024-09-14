@@ -1,4 +1,4 @@
-import axios, { axiosClassic } from 'api/interceptots'
+import { instance, axiosClassic } from 'api/interceptots'
 
 import { IActor } from '@/shared/types/movie.types'
 
@@ -11,25 +11,28 @@ export const ActorsService = {
 		return axiosClassic.get<IActor[]>(getActorsUrl(''), {
 			params: searchTerm
 				? {
-						searchTerm,
-				  }
-				: {},
+						searchTerm
+					}
+				: {}
 		})
 	},
 
 	async getById(_id: string) {
-		return axios.get<IActorEditInput>(getActorsUrl(`/${_id}`))
+		return instance.get<IActorEditInput>(getActorsUrl(`/${_id}`))
+	},
+	async getBySlug(slug: string) {
+		return axiosClassic.get<IActor>(getActorsUrl(`/by-slug/${slug}`))
 	},
 
 	async deleteActor(_id: string) {
-		return axios.delete<string>(getActorsUrl(`/${_id}`))
+		return instance.delete<string>(getActorsUrl(`/${_id}`))
 	},
 
 	async update(_id: string, data: IActorEditInput) {
-		return axios.put<string>(getActorsUrl(`/${_id}`), data)
+		return instance.put<string>(getActorsUrl(`/${_id}`), data)
 	},
 
 	async create() {
-		return axios.post<string>(getActorsUrl(`/`))
-	},
+		return instance.post<string>(getActorsUrl(`/`))
+	}
 }

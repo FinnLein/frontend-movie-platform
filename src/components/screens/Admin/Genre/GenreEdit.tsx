@@ -1,6 +1,6 @@
 'use client'
 
-import { FC } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { stripHtml } from 'string-strip-html'
 
@@ -28,6 +28,7 @@ const GenreEdit: FC<IGenreEditProps> = ({ genreId }) => {
 		handleSubmit,
 		register,
 		formState: { errors },
+		getFieldState,
 		setValue,
 		control,
 		getValues,
@@ -35,7 +36,9 @@ const GenreEdit: FC<IGenreEditProps> = ({ genreId }) => {
 		mode: 'onChange',
 	})
 
-	const { isLoading, onSubmit } = useGenreEdit(setValue, genreId)
+	const { isLoading, onSubmit, data } = useGenreEdit(setValue, genreId)
+
+	console.log('gasdas', getFieldState('description'))
 
 	return (
 		<>

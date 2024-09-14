@@ -13,7 +13,6 @@ body {
 	font-family: "Outfit", sans-serif;
 
 	@apply bg-gray-900;
-
 	&::-webkit-scrollbar {
 		display: none;
 	}
@@ -35,6 +34,11 @@ a {
 input[type="file"],
 input[type="file"]::-webkit-file-upload-button {
 	@apply cursor-pointer focus:outline-none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 0s 600000s, color 0s 600000s;
 }
 
 input:focus {

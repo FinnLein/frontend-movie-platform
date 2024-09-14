@@ -22,16 +22,14 @@ export const useGenreEdit = (
 
 	const searchParams = useSearchParams()
 
-	const { isLoading } = useQuery(
+	const { isLoading, data } = useQuery(
 		['genre', genreId],
 		() => GenreService.getById(genreId),
 		{
-			onSuccess: ({ data }) => {
+			onSuccess({ data }) {
 				getKeys(data).forEach((key) => {
 					setValue(key, data[key])
 				})
-
-				setValue('name', data.name)
 			},
 			onError: (error) => {
 				toastError(error, 'Get genre')
@@ -39,15 +37,16 @@ export const useGenreEdit = (
 			enabled: !!searchParams.get('id'),
 		}
 	)
+
 	const { mutateAsync } = useMutation(
 		'update genre',
 		(data: IGenreEditInput) => GenreService.updateGenre(genreId, data),
 		{
-			onError: (error) => {
+			onError(error) {
 				toastError(error, 'Update genre')
 			},
 			onSuccess() {
-				toastr.success('Update genre', 'updating succesful')
+				toastr.success('Update genre', 'update was successful')
 				push(getAdminUrl('genre'))
 			},
 		}
@@ -57,5 +56,5 @@ export const useGenreEdit = (
 		await mutateAsync(data)
 	}
 
-	return { onSubmit, isLoading }
+	return { onSubmit, isLoading, data }
 }

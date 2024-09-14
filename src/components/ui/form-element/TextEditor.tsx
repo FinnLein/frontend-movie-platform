@@ -6,9 +6,8 @@ import { FC, useEffect, useState } from 'react'
 import { Editor } from 'react-draft-wysiwyg'
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
-import { ITextEditor } from './form.interface'
-
 import styles from './Form.module.scss'
+import { ITextEditor } from './form.interface'
 
 const TextEditor: FC<ITextEditor> = ({
 	placeholder,
@@ -42,39 +41,33 @@ const TextEditor: FC<ITextEditor> = ({
 
 	return (
 		<div className={cn(styles.common, styles.editorWrapper, 'animate-fade')}>
-			<label>
-				<span>{placeholder}</span>
+			<span>{placeholder}</span>
 
-				<div className={styles.wrapper}>
-					<Editor
-						toolbarClassName={styles.toolbar}
-						editorClassName={styles.editor}
-						editorState={editorState}
-						onEditorStateChange={onEditorStateChange}
-						spellCheck
-						toolbar={{
-							options: ['inline', 'blockType', 'list'],
-							inline: {
-								inDropdown: false,
-								className: undefined,
-								component: undefined,
-								dropdownClassName: undefined,
-								options: ['bold', 'italic', 'underline', 'strikethrough'],
-							},
-							blockType: {
-								inDropdown: false,
-								options: [],
-							},
-							list: {
-								inDrodown: false,
-								options: ['unordered', 'ordered'],
-							},
-						}}
-					/>
-				</div>
+			<div className={styles.wrapper}>
+				<Editor
+					toolbarClassName={styles.toolbar}
+					editorClassName={styles.editor}
+					editorState={editorState}
+					onEditorStateChange={onEditorStateChange}
+					spellCheck
+					toolbar={{
+						options: ['inline', 'list'],
+						inline: {
+							inDropdown: false,
+							className: undefined,
+							component: undefined,
+							dropdownClassName: undefined,
+							options: ['bold', 'italic', 'underline', 'strikethrough'],
+						},
+						list: {
+							inDropdown: false,
+							options: ['unordered', 'ordered'],
+						},
+					}}
+				/>
+			</div>
 
-				{error && <div className={styles.error}>{error.message}</div>}
-			</label>
+			{error && <div className={styles.error}>{error.message}</div>}
 		</div>
 	)
 }

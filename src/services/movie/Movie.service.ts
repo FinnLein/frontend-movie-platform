@@ -1,5 +1,4 @@
-import { axiosClassic } from 'api/interceptots'
-import axios from 'api/interceptots'
+import { axiosClassic, instance } from 'api/interceptots'
 
 import { IMovieEditInput } from '@/components/screens/Admin/Movie/modie-edit.interface'
 
@@ -12,14 +11,25 @@ export const MovieService = {
 		return axiosClassic.get<IMovie[]>(getMoviesUrl(''), {
 			params: searchTerm
 				? {
-						searchTerm,
-				  }
-				: {},
+						searchTerm
+					}
+				: {}
 		})
 	},
 	async getById(_id: string) {
-		return axios.get<IMovieEditInput>(getMoviesUrl(`/${_id}`))
+		return instance.get<IMovieEditInput>(getMoviesUrl(`/${_id}`))
 	},
+	async getByGenres(genreIds: string[]) {
+		return axiosClassic.post<IMovie[]>(getMoviesUrl(`/by-genres`), { genreIds })
+	},
+
+	async getByActors(actorId: string) {
+		return axiosClassic.get<IMovie[]>(getMoviesUrl(`/by-actor/${actorId}`))
+	},
+	async getBySlug(slug: string) {
+		return axiosClassic.get<IMovie>(getMoviesUrl(`/by-slug/${slug}`))
+	},
+
 	async getMostPopular() {
 		const { data: movies } = await axiosClassic.get<IMovie[]>(
 			getMoviesUrl('/most-popular')
@@ -27,12 +37,17 @@ export const MovieService = {
 		return movies
 	},
 	async deleteMovie(_id: string) {
-		return axios.delete<string>(getMoviesUrl(`/${_id}`))
+		return instance.delete<string>(getMoviesUrl(`/${_id}`))
 	},
 	async update(_id: string, data: IMovieEditInput) {
-		return axios.put<string>(getMoviesUrl(`/${_id}`), data)
+		return instance.put<string>(getMoviesUrl(`/${_id}`), data)
 	},
 	async create() {
-		return axios.post<string>(getMoviesUrl('/'))
+		return instance.post<string>(getMoviesUrl('/'))
 	},
+	async updateCountOpened(slug: string) {
+		return axiosClassic.put<string>(getMoviesUrl('/update-count-opened'), {
+			slug
+		})
+	}
 }

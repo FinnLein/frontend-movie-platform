@@ -1,3 +1,5 @@
+'use client'
+
 import { useRouter, useSearchParams } from 'next/navigation'
 import { SubmitHandler, UseFormSetValue } from 'react-hook-form'
 import { useMutation, useQuery } from 'react-query'
@@ -27,7 +29,6 @@ export const useMovieEdit = (
 				getKeys(data).forEach((key) => {
 					setValue(key, data[key])
 				})
-				setValue('title', data.title)
 			},
 			onError: (error) => {
 				toastError(error, 'Get movie')

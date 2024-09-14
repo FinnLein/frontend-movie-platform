@@ -4,21 +4,22 @@ import Cookies from 'js-cookie'
 import { AuthService } from '@/services/auth/Auth.service'
 import { removeTokensStorage } from '@/services/auth/auth.helper'
 
-import { API_URL } from '@/configs/api.config'
+import { API_SERVER_URL, API_URL } from '@/configs/api.config'
 
 import { errorCatch, getContentType } from './api.helpers'
+import { IS_PRODCTION } from '@/configs/constant'
 
 export const axiosClassic = axios.create({
-	baseURL: API_URL,
-	headers: getContentType(),
+	baseURL: IS_PRODCTION ? API_SERVER_URL : API_URL,
+	headers: getContentType()
 })
 
 export const instance = axios.create({
 	baseURL: API_URL,
-	headers: getContentType(),
+	headers: getContentType()
 })
 
-instance.interceptors.request.use((config) => {
+instance.interceptors.request.use(config => {
 	const accessToken = Cookies.get('accessToken')
 
 	if (config.headers && accessToken) {
@@ -29,14 +30,14 @@ instance.interceptors.request.use((config) => {
 })
 
 instance.interceptors.response.use(
-	(config) => config,
-	async (error) => {
+	config => config,
+	async error => {
 		const originalRequest = error.config
 
 		if (
-			(error.response.status === 401 ||
+			error.response.status === 401 ||
 			errorCatch(error) === 'jwt expired' ||
-			(errorCatch(error) === 'jwt must be provided') &&
+			(errorCatch(error) === 'jwt must be provided' &&
 				error.config &&
 				!error.config._isRetry)
 		) {

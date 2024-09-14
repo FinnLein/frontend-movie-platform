@@ -1,9 +1,7 @@
-import Heading from '@/components/ui/heading/Heading'
+import Profile from '@/components/screens/Profile/Profile'
 
-const Profile = () => {
-	return <div>
-		<Heading title='Profile' className='text-xl'/>
-	</div>
+const ProfilePage = () => {
+	return <Profile/>
 }
 
-export default Profile
+export default ProfilePage

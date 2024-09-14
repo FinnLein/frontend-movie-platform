@@ -13,7 +13,7 @@ interface IAuth {
 const AuthFields: FC<IAuth> = ({
 	register,
 	formState: { errors },
-	isPasswordRequired = false,
+	isPasswordRequired = false
 }) => {
 	return (
 		<>
@@ -22,12 +22,12 @@ const AuthFields: FC<IAuth> = ({
 					required: 'Email is required!',
 					pattern: {
 						value: validEmail,
-						message: 'Please enter a valid email',
-					},
+						message: 'Please enter a valid email'
+					}
 				})}
-				placeholder="E-mail"
+				placeholder='E-mail'
 			/>
-			<span className="text-primary">{errors.email && 'Email is invalid'}</span>
+			<span className='text-primary'>{errors.email && 'Email is invalid'}</span>
 			<Field
 				{...register(
 					'password',
@@ -36,15 +36,17 @@ const AuthFields: FC<IAuth> = ({
 								required: 'Password is required!',
 								minLength: {
 									value: 6,
-									message: 'Min length should more 6 symbols!',
-								},
-						  }
+									message: 'Min length should more 6 symbols!'
+								}
+							}
 						: {}
 				)}
-				placeholder="Password"
-				type="password"
+				placeholder='Password'
+				type='password'
 			/>
-			<span className="text-primary">{errors.password && 'Password is invalid'}</span>
+			<span className='text-primary'>
+				{errors.password && 'Password is invalid'}
+			</span>
 		</>
 	)
 }

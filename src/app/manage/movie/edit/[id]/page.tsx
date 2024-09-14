@@ -1,6 +1,5 @@
-import { NextPage } from 'next'
-
 import MovieEdit from '@/components/screens/Admin/Movie/MovieEdit'
+import { NextPage } from 'next'
 
 interface IMovieEdit {
 	params: { id: string }

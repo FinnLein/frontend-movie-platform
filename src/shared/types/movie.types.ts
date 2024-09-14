@@ -31,10 +31,11 @@ export interface IMovie {
 	genres: IGenre[]
 	actors: IActor[]
 	countOpened: number
-	desсription: string
+	description: string
 	videoUrl: string
 	rating: number
 	slug: string
+	isSendTelegram?: boolean
 }
 
 export interface TypedMovie {

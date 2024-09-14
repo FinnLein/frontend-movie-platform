@@ -8,15 +8,15 @@ import { IGallerItemProps } from './gallery.interface'
 
 const GalleryItem: FC<IGallerItemProps> = ({ item, variant }) => {
 	return (
-		<div
-			className={cn(styles.item, {
-				[styles.withText]: item.content,
-				[styles.horizontal]: variant === 'horizontal',
-				[styles.vertical]: variant === 'vertical',
-			})}
-		>
-			{' '}
-			<Link href={item.link}>
+		<Link href={item.link} className={cn(styles.item, {
+			[styles.withText]: item.content,
+			[styles.horizontal]: variant === 'horizontal',
+			[styles.vertical]: variant === 'vertical',
+		})}>
+			<div
+				
+			>
+				{' '}
 				<Image
 					alt={item.name}
 					src={item.posterPath}
@@ -32,8 +32,8 @@ const GalleryItem: FC<IGallerItemProps> = ({ item, variant }) => {
 						)}
 					</div>
 				)}
-			</Link>
-		</div>
+			</div>
+		</Link>
 	)
 }
 

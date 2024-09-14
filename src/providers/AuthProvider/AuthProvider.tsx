@@ -5,11 +5,11 @@ import { FC, PropsWithChildren, useEffect } from 'react'
 import { useActions } from '@/hooks/useActions'
 import { useAuth } from '@/hooks/useAuth'
 
-import { protectedRoutes } from './protected-routes'
 import NotFound from '@/app/not-found'
 import Auth from '@/components/screens/Auth/Auth'
+import { protectedRoutes } from './protected-routes'
 
-const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
+const AuthProvider: FC<PropsWithChildren> = ({ children }) => {
 	const { user } = useAuth()
 	const { checkAuth, logout } = useActions()
 	const pathname = usePathname()
@@ -25,22 +25,22 @@ const AuthProvider: FC<PropsWithChildren<unknown>> = ({ children }) => {
 	}, [pathname]) // eslint-disable-line react-hooks/exhaustive-deps
 
 	const isProtectedRoute = protectedRoutes.some(
-		(route) => pathname?.startsWith(route)
+		route => pathname?.startsWith(route)
 	)
 
-    const isAdminRoute = pathname?.startsWith('/manage')
+	const isAdminRoute = pathname?.startsWith('/manage')
 
-    if(!isProtectedRoute && !isAdminRoute) return <>{children}</>
+	if (!isProtectedRoute && !isAdminRoute) return <>{children}</>
 
-    if(user?.isAdmin) return <>{children}</>
+	if (user?.isAdmin) return <>{children}</>
 
-    if(user && isProtectedRoute) return <>{children}</>
+	if (user && isProtectedRoute) return <>{children}</>
 
-    if(user && isAdminRoute) return <NotFound/>
+	if (user && isAdminRoute) return <NotFound />
 
-    if(pathname !== '/auth') return <Auth/>
+	if (pathname !== '/auth') return <Auth />
 
-	return null
+	return <>{children}</>
 }
 
 export default AuthProvider

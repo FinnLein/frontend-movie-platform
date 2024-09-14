@@ -1,8 +1,8 @@
-import axios from 'api/interceptots'
+import { instance } from 'api/interceptots';
 
 export const FileService = {
 	async upload(file: FormData, folder?: string) {
-		return axios.post<{ url: string; name: string }[]>('/files', file, {
+		return instance.post<{ url: string; name: string }[]>('/files', file, {
 			params: { folder },
 			headers: { 'Content-Type': 'multipart/form-data' },
 		})

@@ -24,18 +24,14 @@ export const useUserEdit = (
 		['user', userId],
 		() => UserService.getById(userId),
 		{
-			
 			onSuccess: ({ data }) => {
-				getKeys(data).forEach((key) => {
-					setValue(key, data[key])
-				})
-
 				setValue('email', data.email)
+				setValue('isAdmin', data.isAdmin)
 			},
 			onError: (error) => {
 				toastError(error, 'Get user')
 			},
-			
+
 			enabled: !!searchParams.get('id'),
 		}
 	)
@@ -57,7 +53,6 @@ export const useUserEdit = (
 	const onSubmit: SubmitHandler<IUserEditInput> = async (data) => {
 		await mutateAsync(data)
 	}
-
 
 	return { onSubmit, isLoading }
 }

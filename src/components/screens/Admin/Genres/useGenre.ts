@@ -1,5 +1,6 @@
 'use client'
 
+import parse from 'html-react-parser'
 import { useRouter } from 'next/navigation'
 import { ChangeEvent, useMemo, useState } from 'react'
 import { useMutation, useQuery } from 'react-query'
@@ -30,12 +31,13 @@ export const useGenre = () => {
 					(genre): ITableItem => ({
 						_id: genre._id,
 						editUrl: getAdminUrl(`genre/edit/${genre._id}`),
-						items: [genre.name, genre.slug],
+						//@ts-ignore
+						items: [genre.name, parse(genre.description)]
 					})
 				),
-			onError: (error) => {
+			onError: error => {
 				toastError(error, 'Genre list')
-			},
+			}
 		}
 	)
 
@@ -47,26 +49,26 @@ export const useGenre = () => {
 		'Delete genre',
 		(genreId: string) => GenreService.deleteGenre(genreId),
 		{
-			onError: (error) => {
+			onError: error => {
 				toastError(error, 'Delete genre')
 			},
 			onSuccess: () => {
 				toastr.success('Delete genre', ' deleting success')
 				queryData.refetch()
-			},
+			}
 		}
 	)
 	const { mutateAsync: createAsync } = useMutation(
 		'Create genre',
 		() => GenreService.create(),
 		{
-			onError: (error) => {
+			onError: error => {
 				toastError(error, 'Create genre')
 			},
 			onSuccess: ({ data: _id }) => {
 				toastr.success('Create genre', ' creating success')
 				push(getAdminUrl(`genre/edit/${_id}`))
-			},
+			}
 		}
 	)
 

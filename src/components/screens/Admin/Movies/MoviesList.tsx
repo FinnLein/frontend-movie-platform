@@ -33,7 +33,7 @@ const MoviesList: FC = () => {
 				isLoading={isLoading}
 				removeHandler={deleteAsync}
 				tableItems={data || []}
-				headerItems={['Movie title', 'Genre list', 'Movie rating']}
+				headerItems={['Movie title', 'Genre list', 'Rating']}
 			/>
 		</>
 	)

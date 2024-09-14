@@ -199,7 +199,7 @@ const MovieEdit: FC<IMovieEdit> = ({ movieId }) => {
 						</div>
 						<Controller
 							control={control}
-							name="desсription"
+							name="description"
 							defaultValue=""
 							render={({
 								field: { value, onChange },

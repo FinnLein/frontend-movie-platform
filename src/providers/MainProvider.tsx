@@ -15,9 +15,9 @@ import ReduxToast from './ReduxToast'
 const queryClient = new QueryClient({
 	defaultOptions: {
 		queries: {
-			refetchOnWindowFocus: false,
-		},
-	},
+			refetchOnWindowFocus: false
+		}
+	}
 })
 
 const MainProvider: FC<PropsWithChildren> = ({ children }) => {
@@ -28,7 +28,7 @@ const MainProvider: FC<PropsWithChildren> = ({ children }) => {
 					color={accentColor}
 					options={{ showSpinner: false }}
 					shallowRouting
-					height="4px"
+					height='4px'
 				/>
 				<ReduxToast />
 				<AuthProvider>{children}</AuthProvider>
